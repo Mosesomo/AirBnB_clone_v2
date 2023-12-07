@@ -22,12 +22,13 @@ def do_deploy(archive_path):
         archive = archive_path.split('/')[-1]
         archive_no_ext = archive.split('.')[0]
         remote_path = "/tmp/{}".format(archive)
-        remote_folder = "/data/web_static/releases/{}".format(archive_no_ext)
+        remote_folder = "/data/web_static/releases/{}/".format(archive_no_ext)
 
         put(archive_path, remote_path)
-        run("sudo mkdir -p {}".format(remote_folder))
+        run("sudo mkdir -p {}/".format(remote_folder))
         run("sudo tar -xzf {} -C {}".format(remote_path, remote_folder))
-        run("sudo rm -rf {}".format(remote_path))
+        run("sudo rm {}".format(remote_path))
+        run("sudo mv {0}web_static/* {0}".format(remote_folder))
         run("sudo rm -rf /data/web_static/current")
         run("sudo ln -s {} /data/web_static/current".format(remote_folder))
 
