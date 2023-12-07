@@ -16,7 +16,7 @@ def do_pack():
         local("mkdir -p versions")
         path = "versions/web_static_{}.tgz".format(time)
         local("tar -cvzf {} web_static".format(path))
-
+        print("web_static packed: {}".format(path))
         return path
     except Exception:
         return None
