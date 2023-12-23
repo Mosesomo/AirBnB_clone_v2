@@ -11,12 +11,10 @@ import models
 place_amenity = Table("place_amenity", Base.metadata,
                       Column("place_id", String(60),
                              ForeignKey("places.id"),
-                             primary_key=True,
-                             nullable=False),
+                             primary_key=True),
                       Column("amenity_id", String(60),
                              ForeignKey("amenities.id"),
-                             primary_key=True,
-                             nullable=False))
+                             primary_key=True))
 
 
 class Place(BaseModel, Base):
@@ -36,6 +34,7 @@ class Place(BaseModel, Base):
     """
     __tablename__ = "places"
     city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
+    city = relationship("City")
     user_id = Column(String(60), ForeignKey("users.id"), nullable=False)
     name = Column(String(128), nullable=False)
     description = Column(String(1024))
