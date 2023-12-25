@@ -4,12 +4,6 @@
 from flask import Flask, render_template
 from models import storage
 from models.state import State
-from models.city import City
-from models.amenity import Amenity
-from models.user import User
-from models.place import Place
-from models.review import Review
-
 app = Flask(__name__)
 
 
@@ -19,7 +13,8 @@ def cities_by_states():
     """
 
     states = storage.all(State).values()
-    return render_template('8-cities_by_states.html', states=states)
+    sorted_states = sorted(states, key=lambda s: s.name)
+    return render_template('8-cities_by_states.html', states=sorted_states)
 
 
 @app.teardown_appcontext
